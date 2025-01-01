@@ -45,13 +45,13 @@ class LinkedList {
     }
 
     contains(value) {
-        const values = this.list.map(nodes => nodes.value);
+        const values = this.list.map(nodes => nodes);
         if (!values.includes(value)) {return console.error ('Node not found!');}
         return values.includes(value);
     }
 
     find(value) {
-        const values = this.list.map(nodes => nodes.value);
+        const values = this.list.map(nodes => nodes);
         if (this.contains(value)) {return values.findIndex((foo) => foo === value);};
     }
 
@@ -60,7 +60,7 @@ class LinkedList {
         const values = this.list.map(nodes => nodes.value);
         for (let i = 0; i <= this.size(); i++) {
             if (i === 0) {
-                string = `( ${values[i]} )`;
+                string = `( key:${values[i].key}, value:${values[i].value} )`;
                 continue;
             }
 
@@ -69,7 +69,7 @@ class LinkedList {
                 continue;
             }
 
-            string = string + ` -> ( ${values[i]} )`;
+            string = string + ` -> ( key:${values[i].key}, value:${values[i].value} )`;
         }
 
         return string;
@@ -91,15 +91,16 @@ class LinkedList {
 
     removeAt(index){
         this.list.splice(index, 1);
-
-        this.list[index-1].nextNode = this.list[index];
-
-        if (!this.list[index-1].nextNode){this.list[index-1].nextNode = null;}
+        
+        if (index > 0) {
+            this.list[index-1].nextNode = this.list[index];
+            if (!this.list[index-1].nextNode){this.list[index-1].nextNode = null;}
+        }   
     }
 
     findByKey(key) {
         let matchingKey = this.list.find(node => node.value.key === key)
-        return this.find(matchingKey);
+        return matchingKey;
     }
 }
 
