@@ -1,5 +1,5 @@
 import { HashMap } from "./HashMap.js";
-import "./style.css";
+//import "./style.css";
 
 let hashmap = new HashMap();
 

@@ -7,15 +7,16 @@ class HashMap {
 
     set(key, value) {
         let keyCode = hash(key);
-        let existingKey = this.buckets.find((node) => node.key === keyCode)
-        
-        if(existingKey) {
-            existingKey.value = value;
+        let existingNodes = this.buckets.filter(node => node !== undefined);
+        let matchingNode = existingNodes.find(node => node.key === key);
+
+        if (matchingNode) {
+            matchingNode.value = value;
         } else {
             let bucket = keyCode % 16;
 
-            let newNode = new Node(keyCode, value);
-            buckets[bucket] = newNode;
+            let newNode = new Node(key, value);
+            this.buckets[bucket] = newNode;
         }
     }
 }
