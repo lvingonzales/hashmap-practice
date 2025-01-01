@@ -1,3 +1,5 @@
+import { LinkedList } from "./LinkedList.js";
+
 class HashMap {
     constructor() {
         this.loadFactor = .80;
@@ -7,16 +9,25 @@ class HashMap {
 
     set(key, value) {
         let keyCode = hash(key);
+        let newNode = new Node(key, value);
         let existingNodes = this.buckets.filter(node => node !== undefined);
-        let matchingNode = existingNodes.find(node => node.key === key);
-
-        if (matchingNode) {
-            matchingNode.value = value;
+        let matchingBucket = existingNodes.find(node => hash(node.value.key) === keyCode);
+        if (matchingBucket !== undefined) {
+            let matchingNode = matchingBucket.at(findByKey(newNode.key));
+            if (matchingNode) {
+                matchingNode.value.value = newNode.value;
+            }
         } else {
             let bucket = keyCode % 16;
 
-            let newNode = new Node(key, value);
-            this.buckets[bucket] = newNode;
+            if (!this.buckets[bucket]) {
+                console.log (`Bucket: ${bucket} is empty`);
+                let newLinkedList = new LinkedList();
+                newLinkedList.append(newNode);
+                this.buckets[bucket] = newLinkedList;
+            } else {
+                this.buckets[bucket] = newNode;
+            }
         }
     }
 }

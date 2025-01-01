@@ -34,7 +34,7 @@ class LinkedList {
     }
 
     at(index) {
-        if(index > (size - 1) || index < 0) {return console.error('Index not within List!');}
+        if(index > (this.size() - 1) || index < 0) {return console.error('Index not within List!');}
         return this.list[index];
     }
 
@@ -53,7 +53,6 @@ class LinkedList {
     find(value) {
         const values = this.list.map(nodes => nodes.value);
         if (this.contains(value)) {return values.findIndex((foo) => foo === value);};
-        
     }
 
     toString() {
@@ -98,6 +97,10 @@ class LinkedList {
         if (!this.list[index-1].nextNode){this.list[index-1].nextNode = null;}
     }
 
+    findByKey(key) {
+        let matchingKey = this.list.find(node => node.value.key === key)
+        return this.find(matchingKey);
+    }
 }
 
 class Node {

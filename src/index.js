@@ -4,5 +4,6 @@ import { HashMap } from "./HashMap.js";
 let hashmap = new HashMap();
 
 hashmap.set("hat", "red");
+hashmap.set("hat", "blue");
 
 console.log (hashmap.buckets);
